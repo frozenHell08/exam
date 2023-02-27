@@ -1,0 +1,40 @@
+<x-layout>
+    <div id="contentbg" class="entryform">
+        <div id="content">
+            <h1 class="mine">Book Entry</h1>
+            
+            <form method="POST" action="/">
+                @csrf
+                <div id="credentials" class="form-group">
+                    <label for="title">Book Title</label>
+                    <input id="title" name="title" placeholder="Book Title" type="text" class="input" 
+                    value="{{ $title }}"
+                    required 
+                    />
+
+                    <label for="series">Series</label>
+                    <input id="series" name="series" placeholder="Series" type="text" class="input" 
+                    value="{{ $series }}"/>
+
+                    <label for="author">Author</label>
+                    <input id="author" name="author" placeholder="Author" type="text" class="input"
+                    value="{{ $author }}" required />
+                    
+                    <label for="pubmonth">Publication</label>
+                    <input id="pubmonth" name="pubmonth" placeholder="Publication Month" type="month" class="input"
+                    value="" required />
+                </div>
+
+                <hr>
+               
+                <form method="POST" >
+                    @csrf
+                    <input id="btnSubmit" type="submit" value="Update Book"/>
+                </form>
+
+
+                <button id="btnBack" onclick="history.back()">Back</button>
+            </form>
+        </div>
+    </div>
+</x-layout>

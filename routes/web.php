@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Book;
+use App\Http\Controllers\EntryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home', [
+        'books' => Book::all()
+    ]);
 });
+
+Route::post('/', [EntryController::class, 'save']);
+Route::patch('/{id}', [EntryController::class, 'update'])->name('book.update');
+Route::post('/{id}', [EntryController::class, 'edit'])->name('book.edit');
+Route::delete('/{id}', [EntryController::class, 'destroy'])->name('book.destroy');
