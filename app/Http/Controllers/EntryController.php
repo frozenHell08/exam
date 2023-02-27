@@ -65,14 +65,12 @@ class EntryController extends Controller
 
     public function update($id) {
         $book = Book::find($id);
-        // $book->delete();
         $details = request()->validate([
             'title' => ['required', 'max:255'],
             'author' => ['required', 'max:255'],
             'series' => ['required', 'max:255'],
             'pubmonth' => ['required']
         ]);
-        // $book = Book::where('id', $id)->firstorfail()->delete();
 
         $mydate = request()->date('pubmonth')->toDateTimeString();
         $dt = Carbon::parse($mydate);
