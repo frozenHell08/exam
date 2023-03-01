@@ -8,8 +8,17 @@ use Illuminate\Http\Request;
 
 class EntryController extends Controller
 {
+    public function index() {
+        $books = Book::all();
+        
+        return response()->json([
+            'status' => true,
+            'books' => $books
+        ]);
+    }
+
     public function save() {
-        /**
+        /** 
          * comments (Joshua)
          * the validate part is to back-up the client side validation so that the input is being double-checked
          * in-case of bypass or browser errors.
@@ -41,7 +50,7 @@ class EntryController extends Controller
 
         $book->save();
 
-        return redirect('/');
+        return redirect('/'); // ajax . redux state management, observe, observable
     }
 
     public function destroy($id) {
@@ -50,6 +59,7 @@ class EntryController extends Controller
          * the parameter id is connected through the action in the button and the route delete entry
          */
         $book = Book::where('id', $id)->firstorfail()->delete();
+        
         return redirect('/');
     }
 

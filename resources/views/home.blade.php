@@ -9,7 +9,7 @@ sort of like connecting with starbucks wifi with a mcdo credentials.
     <div id="contentbg" class="entryform">
         <div id="content">
             <h1 class="mine">Book Entry</h1>
-            
+            <a href="/entry/create"> yello</a>
             <form method="POST" action="/">
                 @csrf
                 <div id="credentials" class="form-group">

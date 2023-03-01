@@ -2,6 +2,7 @@
 
 use App\Models\Book;
 use App\Http\Controllers\EntryController;
+use App\Http\Controllers\Api\BookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,7 @@ Route::get('/', function () {
         'books' => Book::all()
     ]);
 });
+
 
 Route::post('/', [EntryController::class, 'save']);
 Route::patch('/{id}', [EntryController::class, 'update'])->name('book.update');
