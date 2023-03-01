@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 
 class EntryController extends Controller
 {
-    public function index() {
-        $books = Book::all();
+    // public function index() {
+    //     $books = Book::all();
         
-        return response()->json([
-            'status' => true,
-            'books' => $books
-        ]);
-    }
+    //     return response()->json([
+    //         'status' => true,
+    //         'books' => $books
+    //     ]);
+    // }p===
 
     public function save() {
         /** 
@@ -35,22 +35,19 @@ class EntryController extends Controller
         ]);
 
         $mydate = request()->date('pubmonth')->toDateTimeString();
-        $dt = Carbon::parse($mydate);
-        
-        $year = $dt->year;
-        $month = $dt->format('F');
+        var_dump($details['pubmonth']);
+        $year = Carbon::parse($mydate)->year;
 
-        $book = new Book;
+        // $book = Book::create([
+        //     'title' => $details['title'],
+        //     'series' => $details['series'],
+        //     'author' => $details['author'],
+        //     'publication_month' => Carbon::parse($details['pubmonth'])->format('F'),
+        //     'publication_year' => Carbon::parse($details['pubmonth'])->year
+        // ]);
 
-        $book->title = $details['title'];
-        $book->series = $details['series'];
-        $book->author = $details['author'];
-        $book->publication_month = $month;
-        $book->publication_year = $year;
-
-        $book->save();
-
-        return redirect('/'); // ajax . redux state management, observe, observable
+        // return redirect('/'); // ajax . redux state management, observe, observable
+        // return response()->json($book, 201);
     }
 
     public function destroy($id) {

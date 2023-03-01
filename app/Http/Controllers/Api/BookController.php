@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreBookRequest;
 use App\Models\Book;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Response;
 
 class BookController extends Controller
 {
@@ -32,9 +35,33 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreBookRequest $request)
     {
-        //
+        $details = $request->validate([
+            'title' => ['required', 'max:255'],
+            'author' => ['required', 'max:255'],
+            'series' => ['required', 'max:255'],
+            'pubmonth' => ['required']
+        ]);
+
+        $mydate = $request->date('pubmonth')->toDateTimeString();
+
+        $year = Carbon::parse($mydate)->year;
+
+        $book = Book::create([
+            'title' => $details['title'],
+            'series' => $details['series'],
+            'author' => $details['author'],
+            'publication_month' => Carbon::parse($details['pubmonth'])->format('F'),
+            'publication_year' => Carbon::parse($details['pubmonth'])->year
+        ]);
+
+        // return redirect('/'); // ajax . redux state management, observe, observable
+        return response()->json([
+            'status' => true,
+            'message' => "Book successfuly entered.",
+            'book' => $book
+        ], 200);
     }
 
     /**
@@ -56,9 +83,15 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Book $book)
+    public function update(StoreBookRequest $request, Book $book)
     {
-        //
+        $book->update($request->all());
+
+        return response()->json([
+            'status' => true,
+            'message' => "Post has been updated lmao",
+            'book' => $book
+        ], 200);
     }
 
     /**
@@ -66,6 +99,11 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => "deleted"
+        ], 200);
     }
 }

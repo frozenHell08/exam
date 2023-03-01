@@ -11,20 +11,24 @@ class StoreBookRequest extends FormRequest
      * 
      * @return bool
      */
-    public function authorize(): //bool
+    public function authorize()
     {
         return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * 
+     * @return array
+     * return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
-    public function rules(): array
+    public function rules() //: array
     {
         return [
-            // "title" => "required | max:255"
+            "title" => "required|max:255",
+            "author" => "required|max:255",
+            "series" => "required|max:255",
+            "pubmonth" => ""
         ];
     }
 }
