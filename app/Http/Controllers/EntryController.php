@@ -8,25 +8,7 @@ use Illuminate\Http\Request;
 
 class EntryController extends Controller
 {
-    // public function index() {
-    //     $books = Book::all();
-        
-    //     return response()->json([
-    //         'status' => true,
-    //         'books' => $books
-    //     ]);
-    // }p===
-
     public function save() {
-        /** 
-         * comments (Joshua)
-         * the validate part is to back-up the client side validation so that the input is being double-checked
-         * in-case of bypass or browser errors.
-         * 
-         * The saving of the record in the database is configured like this because the publication month 
-         * and year needed to be separated first before being saved in the database. 
-         */
-
         $details = request()->validate([
             'title' => ['required', 'max:255'],
             'author' => ['required', 'max:255'],
@@ -47,7 +29,7 @@ class EntryController extends Controller
         // ]);
 
         // return redirect('/'); // ajax . redux state management, observe, observable
-        // return response()->json($book, 201);
+
     }
 
     public function destroy($id) {
