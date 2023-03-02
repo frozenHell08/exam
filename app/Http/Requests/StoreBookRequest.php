@@ -27,8 +27,8 @@ class StoreBookRequest extends FormRequest
         return [
             "title" => "required|max:255",
             "author" => "required|max:255",
-            "series" => "required|max:255",
-            "pubmonth" => ""
+            "series" => "max:255",
+            "pubmonth" => "required"
         ];
     }
 }

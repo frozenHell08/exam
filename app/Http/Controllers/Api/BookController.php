@@ -14,7 +14,6 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-
     public function index() {
         $books = Book::all();
         
@@ -37,23 +36,16 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        $details = $request->validate([
-            'title' => ['required', 'max:255'],
-            'author' => ['required', 'max:255'],
-            'series' => ['required', 'max:255'],
-            'pubmonth' => ['required']
-        ]);
-
         $mydate = $request->date('pubmonth')->toDateTimeString();
 
         $year = Carbon::parse($mydate)->year;
 
         $book = Book::create([
-            'title' => $details['title'],
-            'series' => $details['series'],
-            'author' => $details['author'],
-            'publication_month' => Carbon::parse($details['pubmonth'])->format('F'),
-            'publication_year' => Carbon::parse($details['pubmonth'])->year
+            'title' => $request->title,
+            'series' => $request->series,
+            'author' => $request->author,
+            'publication_month' => Carbon::parse($request->pubmonth)->format('F'),
+            'publication_year' => Carbon::parse($request->pubmonth)->year
         ]);
 
         // return redirect('/'); // ajax . redux state management, observe, observable
@@ -69,7 +61,17 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        $pub = "{$book->publication_month} {$book->publication_year}";
+
+        return response()->json([
+            'status' => true,
+            'message' => "Displaying book details.",
+            'id' => $book->id,
+            'title' => $book->title,
+            'series' => $book->series,
+            'author' => $book->author,
+            'publication' => $pub
+        ], 200);
     }
 
     /**
@@ -103,7 +105,7 @@ class BookController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => "deleted"
+            'message' => "Book entry deleted."
         ], 200);
     }
 }
